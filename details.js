@@ -14,7 +14,12 @@ function sameFilm(movie,f){
   const c=movie.content;
   if(!c)return false;
   if(/^tt\d+$/.test(f.id)&&c.externalIds?.imdbId)return c.externalIds.imdbId===f.id;
-  return Number(c.originalReleaseYear)===Number(f.year)&&[c.title,c.originalTitle].some(t=>normalizedTitle(t)===normalizedTitle(f.title));
+  const sameTitle=[c.title,c.originalTitle].some(t=>normalizedTitle(t)===normalizedTitle(f.title));
+  if(!sameTitle)return false;
+  const gap=Math.abs(Number(c.originalReleaseYear)-Number(f.year));
+  if(gap===0)return true;
+  const actors=new Set((f.cast||[]).map(normalizedTitle));
+  return gap===1 && c.credits.filter(cr=>cr.role==='ACTOR'&&actors.has(normalizedTitle(cr.name))).length>=2;
 }
 function formatDetails(movie){
   const credits=movie?.content?.credits||[];
