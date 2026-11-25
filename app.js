@@ -23,7 +23,7 @@ function saveButton(f,small=false){
   return '<button class="'+(small?'add':'secondary')+'" data-save="'+f.id+'" aria-label="'+esc(label+' · '+f.title)+'" aria-pressed="'+on+'">'+(small?(on?'✓':'+'):(on?'✓ Dans ma liste':'+ Ma liste'))+'</button>';
 }
 function cards(items){
-  return '<div class="grid">'+items.map(f=>'<article class="card"><button class="movie" data-open="'+f.id+'"><span class="cover"><img loading="lazy" src="'+f.poster+'" alt=""></span><strong>'+esc(f.title)+'</strong><span class="dim">'+esc(f.year+' · '+f.genre)+'</span></button>'+saveButton(f,true)+'</article>').join('')+'</div>';
+  return '<div class="grid">'+items.map(f=>'<article class="card"><button class="movie" data-open="'+f.id+'"><span class="cover" data-poster="'+f.id+'"><span class="poster-label">'+esc(f.title)+'</span>'+(f.poster?'<img loading="lazy" src="'+esc(f.poster)+'" alt="">':'')+'</span><strong>'+esc(f.title)+'</strong><span class="dim">'+esc(f.year+' · '+f.genre)+'</span></button>'+saveButton(f,true)+'</article>').join('')+'</div>';
 }
 function row(f){
   return '<button class="row" data-open="'+f.id+'"><strong>'+esc(f.title)+'</strong><span class="dim">'+esc(f.genre)+'</span><span aria-hidden="true">＋</span></button>';
@@ -53,8 +53,8 @@ function results(){
   const result=[...ordered,...indexed];
   const visible=result.slice(0,resultsLimit);
   const count=archiveReady?archives.length.toLocaleString('fr-FR')+' entrées dans l’index cinéma américain, avec recherche internationale via Cinemeta.':archiveFailed?'Index hors ligne indisponible.':'Chargement de l’index cinéma…';
-  const posters=visible.filter(f=>f.poster),rows=visible.filter(f=>!f.poster);
-  return '<p class="notice">'+count+'</p>'+(searchState?'<p role="status" class="notice">'+esc(searchState)+'</p>':'')+(term?'<p aria-live="polite">'+result.length.toLocaleString('fr-FR')+' résultat'+(result.length===1?'':'s')+'</p>':'')+(posters.length?cards(posters):'')+rows.map(row).join('')+(!result.length&&!searchState?'<p class="empty">Aucun titre trouvé. Essaie le titre original ou une autre orthographe.</p>':'')+(result.length>resultsLimit?'<button class="secondary more" id="more">Afficher davantage de films</button>':'');
+
+  return '<p class="notice">'+count+'</p>'+(searchState?'<p role="status" class="notice">'+esc(searchState)+'</p>':'')+(term?'<p aria-live="polite">'+result.length.toLocaleString('fr-FR')+' résultat'+(result.length===1?'':'s')+'</p>':'')+cards(visible)+(!result.length&&!searchState?'<p class="empty">Aucun titre trouvé. Essaie le titre original ou une autre orthographe.</p>':'')+(result.length>resultsLimit?'<button class="secondary more" id="more">Afficher davantage de films</button>':'');
 
 }
 function render(){
@@ -71,16 +71,14 @@ function detail(id){
   const f=byId.get(id);
   if(!f)return;
   detailId=id;
-  const external=/^tt[0-9]+$/.test(f.id)||/^w[0-9]+$/.test(f.id);
-  const watch=external?'https://www.justwatch.com/fr/recherche?q='+encodeURIComponent(f.title):'https://www.allocine.fr/film/fichefilm-'+f.id+'/streaming/';
   const source=/^tt/.test(f.id)?'<a class="link" href="https://www.imdb.com/title/'+f.id+'/" target="_blank" rel="noopener">Fiche IMDb</a>':f.article?'<a class="link" href="https://en.wikipedia.org/wiki/'+encodeURIComponent(f.article)+'" target="_blank" rel="noopener">Fiche Wikipédia</a>':'';
   const info=[f.year,f.runtime,f.genre].filter(Boolean).join(' · ');
-  document.getElementById('inside').innerHTML=(f.poster?'<img src="'+f.poster+'" alt="">':'')+'<h2>'+esc(f.title)+'</h2><div class="dim">'+esc(info)+'</div>'+(f.director?'<p>Un film de '+esc(f.director)+'</p>':'')+(f.about?'<p>'+esc(f.about)+'</p>':'')+(f.date?'<p>Sortie française le '+dateLabel(f.date)+'</p>':'')+'<div class="actions">'+saveButton(f)+'<a class="primary" target="_blank" rel="noopener" href="'+esc(watch)+'">Où le voir ?</a>'+source+'</div>';
+  document.getElementById('inside').innerHTML=(f.poster?'<img src="'+f.poster+'" alt="">':'')+'<h2>'+esc(f.title)+'</h2><div class="dim">'+esc(info)+'</div>'+(f.about?'<p>'+esc(f.about)+'</p>':'')+(f.date?'<p>Sortie française le '+dateLabel(f.date)+'</p>':'')+creditsAndOffers(f)+'<div class="actions">'+saveButton(f)+source+'</div>';
   if(!dialog.open)dialog.showModal();
 }
 document.addEventListener('click',event=>{
   const b=event.target.closest('button');if(!b)return;
-  if(b.dataset.open){detail(b.dataset.open);enrich(b.dataset.open)}
+  if(b.dataset.open){detail(b.dataset.open);loadFilmDetails(byId.get(b.dataset.open));enrich(b.dataset.open)}
   if(b.id==="more"){resultsLimit+=36;updateResults()}
   if(b.dataset.save){
     const id=b.dataset.save;
@@ -100,6 +98,7 @@ dialog.addEventListener('close',()=>{main.querySelector('[data-open="'+detailId+
 dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});
 main.addEventListener('input',e=>{if(e.target.id==='query'){query=e.target.value;resultsLimit=36;searchOnline()}});
 window.addEventListener('hashchange',()=>{if(dialog.open)dialog.close();render();window.scrollTo(0,0);if(page()==='recherche')document.getElementById('query').focus()});
+observeCovers(main);
 render();
 
 loadArchive();

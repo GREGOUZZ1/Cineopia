@@ -6,15 +6,15 @@ let resultsLimit = 36, archiveReady = false, archiveFailed = false;
 const onlineBase='https://v3-cinemeta.strem.io';
 function decodeMovie(m){
   if(!m || !/^tt\d+$/.test(m.id)||typeof m.name!=='string') return null;
-  return {id:m.id,title:m.name,year:String(m.releaseInfo||m.year||'').slice(0,4),genre:(m.genres||[]).map(g=>genreNames[g]||g).join(', '),director:[].concat(m.director||[]).join(', '),about:m.description||'',runtime:String(m.runtime||''),poster:'https://images.metahub.space/poster/small/'+m.id+'/img'};
+  return {id:m.id,cast:Array.isArray(m.cast)?m.cast:[],title:m.name,year:String(m.releaseInfo||m.year||'').slice(0,4),genre:(m.genres||[]).map(g=>genreNames[g]||g).join(', '),director:[].concat(m.director||[]).join(', '),about:m.description||'',runtime:String(m.runtime||''),poster:'https://images.metahub.space/poster/small/'+m.id+'/img'};
 }
 async function loadArchive(){
   archiveFailed=false;
   try{
     const r=await fetch('films.json');if(!r.ok)throw Error();
     const rows=await r.json();
-    rows.forEach(([title,year,genres,article],i)=>{
-      const f={id:'w'+i,title,year,genre:genres.map(g=>genreNames[g]||g).join(', '),article};
+    rows.forEach(([title,year,genres,article,poster,cast],i)=>{
+      const f={id:'w'+i,title,year,genre:genres.map(g=>genreNames[g]||g).join(', '),article,poster,cast};
       f.searchText=clean([title,year,f.genre].join(' '));archives.push(f);byId.set(f.id,f);
     });
     archiveReady=true;
@@ -53,4 +53,57 @@ async function enrich(id){
     const rich=decodeMovie((await r.json()).meta);
     if(rich && rich.id===id){Object.assign(f,rich);if(dialog.open&&detailId===id)detail(id)}
   }catch{}finally{delete f.detailPending}
+}
+
+function observeCovers(root){
+  const cache=new Map(), failed=new Set(), pending=new Set();
+  let active=0;
+  async function resolveCover(f){
+    const response=await fetch(onlineBase+'/catalog/movie/top/search='+encodeURIComponent(f.title)+'.json',{signal:AbortSignal.timeout(7000)});
+    if(!response.ok)throw Error();
+    const data=await response.json();
+    const match=data.metas.map(decodeMovie).find(m=>m&&clean(m.title)===clean(f.title)&&String(m.year)===String(f.year));
+    return match?.poster||'';
+  }
+  async function drain(){
+    while(active<4 && pending.size){
+      const node=pending.values().next().value;
+      pending.delete(node);
+      if(!node.isConnected)continue;
+      const f=byId.get(node.dataset.poster);
+      if(!f)continue;
+      active++;
+      try{
+        if(!cache.has(f.id))cache.set(f.id,resolveCover(f));
+        const url=await cache.get(f.id);
+        if(url && !failed.has(url)){
+          f.poster=url;
+          if(node.isConnected){const image=new Image();image.alt='';image.src=url;node.append(image)}
+        }else node.title='Affiche indisponible';
+      }catch{cache.delete(f.id);node.title='Affiche indisponible'}finally{active--}
+    }
+  }
+  const observer=new IntersectionObserver(entries=>{
+    for(const e of entries){
+      if(e.isIntersecting){observer.unobserve(e.target);pending.add(e.target)}
+    }
+    drain();
+  },{rootMargin:'200px'});
+  function track(node){
+    if(node.nodeType!==1)return;
+    for(const cover of node.querySelectorAll('.cover[data-poster]')){
+      if(!cover.querySelector('img'))observer.observe(cover);
+    }
+  }
+  root.addEventListener('error',e=>{
+    const image=e.target,cover=image.closest('.cover[data-poster]');
+    if(!cover||image.tagName!=='IMG')return;
+    failed.add(image.src);image.remove();observer.observe(cover);
+  },true);
+  new MutationObserver(changes=>{
+    for(const change of changes){
+      change.addedNodes.forEach(track);
+      for(const n of change.removedNodes)if(n.nodeType===1)n.querySelectorAll('.cover').forEach(c=>observer.unobserve(c));
+    }
+  }).observe(root,{childList:true,subtree:true});
 }

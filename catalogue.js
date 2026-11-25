@@ -137,7 +137,12 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Comédie",
-  "director": "John Hamburg"
+  "director": "John Hamburg",
+  "cast": [
+   "Robert De Niro",
+   "Ben Stiller",
+   "Owen Wilson"
+  ]
  },
  {
   "id": "312529",
@@ -145,7 +150,12 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Animation",
-  "director": "Fawn Veerasunthorn, Jason Hand, Josie Trinidad"
+  "director": "Fawn Veerasunthorn, Jason Hand, Josie Trinidad",
+  "cast": [
+   "Chloé Jouannet",
+   "Hailee Steinfeld",
+   "Valérie Siclay"
+  ]
  },
  {
   "id": "1000028064",
@@ -153,7 +163,12 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Drame",
-  "director": "Pierre-Ange Carlotti"
+  "director": "Pierre-Ange Carlotti",
+  "cast": [
+   "Paul Kircher",
+   "Romeo Beckham",
+   "Guillaume Canet"
+  ]
  },
  {
   "id": "1000027620",
@@ -161,7 +176,12 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Drame",
-  "director": "Stéphane Brizé"
+  "director": "Stéphane Brizé",
+  "cast": [
+   "Alba Rohrwacher",
+   "Vincent Lindon",
+   "Sharif Andoura"
+  ]
  },
  {
   "id": "1000014559",
@@ -169,7 +189,12 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Drame",
-  "director": "James Gray"
+  "director": "James Gray",
+  "cast": [
+   "Adam Driver",
+   "Scarlett Johansson",
+   "Miles Teller"
+  ]
  },
  {
   "id": "1000004190",
@@ -177,7 +202,12 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Comédie",
-  "director": "Martin Provost"
+  "director": "Martin Provost",
+  "cast": [
+   "Fabrice Luchini",
+   "Emmanuelle Devos",
+   "Chiara Mastroianni"
+  ]
  },
  {
   "id": "1000041096",
@@ -185,7 +215,8 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Animation",
-  "director": "Aurélie Raphaël"
+  "director": "Aurélie Raphaël",
+  "cast": []
  },
  {
   "id": "1000043822",
@@ -193,7 +224,12 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Drame",
-  "director": "Rafiki Fariala"
+  "director": "Rafiki Fariala",
+  "cast": [
+   "Bradley Fiomona",
+   "Dieufera Sana",
+   "Hubert Ngbolo"
+  ]
  },
  {
   "id": "1000052290",
@@ -201,7 +237,10 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Animation",
-  "director": "Jakob Schuh, Max Lang, Johannes Weiland"
+  "director": "Jakob Schuh, Max Lang, Johannes Weiland",
+  "cast": [
+   "Zabou Breitman"
+  ]
  },
  {
   "id": "1000037949",
@@ -209,7 +248,12 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Action",
-  "director": "Yuen Woo-Ping"
+  "director": "Yuen Woo-Ping",
+  "cast": [
+   "Jing Wu",
+   "Nicholas Tse",
+   "Yosh Yu"
+  ]
  },
  {
   "id": "1000044062",
@@ -217,7 +261,8 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Documentaire",
-  "director": "Alain Cavalier"
+  "director": "Alain Cavalier",
+  "cast": []
  },
  {
   "id": "1000012306",
@@ -225,7 +270,11 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Drame",
-  "director": "Lisandro Alonso"
+  "director": "Lisandro Alonso",
+  "cast": [
+   "Misael Saavedra",
+   "Catalina Saavedra"
+  ]
  },
  {
   "id": "1000023042",
@@ -233,7 +282,12 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Drame",
-  "director": "Joon-ho Park"
+  "director": "Joon-ho Park",
+  "cast": [
+   "Youhyun Cho",
+   "Hyeonmok Kim",
+   "Dae-Hae Cho"
+  ]
  },
  {
   "id": "1000009924",
@@ -241,7 +295,12 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Drame",
-  "director": "Maryse Legagneur"
+  "director": "Maryse Legagneur",
+  "cast": [
+   "Gilbert Laumord",
+   "Marie-Evelyne Lessard",
+   "Fabrice Yvanoff Sénat"
+  ]
  },
  {
   "id": "1000054743",
@@ -249,7 +308,8 @@ const releases = [
   "date": "2026-11-25",
   "year": 2026,
   "genre": "Divers",
-  "director": "Jérôme Lévy, Eduardo Carretié, Raphaël Jouzeau"
+  "director": "Jérôme Lévy, Eduardo Carretié, Raphaël Jouzeau",
+  "cast": []
  },
  {
   "id": "1000044473",
@@ -257,7 +317,8 @@ const releases = [
   "date": "2026-11-26",
   "year": 2026,
   "genre": "Documentaire",
-  "director": "Bertrand Vinsu, Alexis Amiotte"
+  "director": "Bertrand Vinsu, Alexis Amiotte",
+  "cast": []
  },
  {
   "id": "1000044518",
@@ -265,7 +326,12 @@ const releases = [
   "date": "2026-11-27",
   "year": 2026,
   "genre": "Comédie",
-  "director": "Sooraj R. Barjatya"
+  "director": "Sooraj R. Barjatya",
+  "cast": [
+   "Ayushmann Khurrana",
+   "Sharvari Wagh",
+   "Anupam Kher"
+  ]
  },
  {
   "id": "1000047833",
@@ -273,7 +339,12 @@ const releases = [
   "date": "2026-11-27",
   "year": 2026,
   "genre": "Drame",
-  "director": ""
+  "director": "",
+  "cast": [
+   "Mysskin",
+   "Keerthy Suresh",
+   "Maala Parvathi"
+  ]
  },
  {
   "id": "1000027246",
@@ -281,7 +352,8 @@ const releases = [
   "date": "2026-11-27",
   "year": 2026,
   "genre": "Action",
-  "director": ""
+  "director": "",
+  "cast": []
  },
  {
   "id": "1000042502",
@@ -289,7 +361,10 @@ const releases = [
   "date": "2026-12-01",
   "year": 2026,
   "genre": "Concert",
-  "director": "André Rieu"
+  "director": "André Rieu",
+  "cast": [
+   "André Rieu"
+  ]
  },
  {
   "id": "1000022517",
@@ -297,7 +372,11 @@ const releases = [
   "date": "2026-12-01",
   "year": 2026,
   "genre": "Opéra",
-  "director": "Peter Wright"
+  "director": "Peter Wright",
+  "cast": [
+   "Mayara Magri",
+   "Reece Clarke"
+  ]
  },
  {
   "id": "313265",
@@ -305,7 +384,12 @@ const releases = [
   "date": "2026-12-02",
   "year": 2026,
   "genre": "Animation",
-  "director": "Alexandre Heboyan"
+  "director": "Alexandre Heboyan",
+  "cast": [
+   "Christian Clavier",
+   "François-Xavier Demaison",
+   "Bernard Alane"
+  ]
  },
  {
   "id": "1000031164",
@@ -313,7 +397,12 @@ const releases = [
   "date": "2026-12-02",
   "year": 2026,
   "genre": "Drame",
-  "director": "Pawel Pawlikowski"
+  "director": "Pawel Pawlikowski",
+  "cast": [
+   "Hanns Zischler",
+   "Sandra Hüller",
+   "August Diehl"
+  ]
  },
  {
   "id": "302095",
@@ -321,7 +410,12 @@ const releases = [
   "date": "2026-12-02",
   "year": 2026,
   "genre": "Drame",
-  "director": "Pierre Le Gall"
+  "director": "Pierre Le Gall",
+  "cast": [
+   "Alexis Manenti",
+   "Julian Swiezewski",
+   "Armindo Alves"
+  ]
  },
  {
   "id": "1000018371",
@@ -329,7 +423,12 @@ const releases = [
   "date": "2026-12-09",
   "year": 2026,
   "genre": "Drame",
-  "director": "Jean-Pierre Jeunet"
+  "director": "Jean-Pierre Jeunet",
+  "cast": [
+   "Leïla Bekhti",
+   "Matthias Schoenaerts",
+   "Melvil Poupaud"
+  ]
  },
  {
   "id": "269068",
@@ -337,7 +436,12 @@ const releases = [
   "date": "2026-12-16",
   "year": 2026,
   "genre": "Action",
-  "director": "Joe Russo, Anthony Russo"
+  "director": "Joe Russo, Anthony Russo",
+  "cast": [
+   "Robert Downey Jr.",
+   "Chris Evans",
+   "Chris Hemsworth"
+  ]
  },
  {
   "id": "324508",
@@ -345,7 +449,12 @@ const releases = [
   "date": "2026-12-16",
   "year": 2026,
   "genre": "Action",
-  "director": "Denis Villeneuve"
+  "director": "Denis Villeneuve",
+  "cast": [
+   "Timothée Chalamet",
+   "Zendaya",
+   "Jason Momoa"
+  ]
  },
  {
   "id": "1000024810",
@@ -353,7 +462,12 @@ const releases = [
   "date": "2026-12-16",
   "year": 2026,
   "genre": "Drame",
-  "director": "Javier Calvo, Javier Ambrossi"
+  "director": "Javier Calvo, Javier Ambrossi",
+  "cast": [
+   "Guitarricadelafuente",
+   "Miguel Bernardeau",
+   "Carlos González"
+  ]
  },
  {
   "id": "1000026607",
@@ -361,6 +475,11 @@ const releases = [
   "date": "2027-02-17",
   "year": 2027,
   "genre": "Comédie",
-  "director": "Azedine Kasri, Raphaël Quenard"
+  "director": "Azedine Kasri, Raphaël Quenard",
+  "cast": [
+   "Raphaël Quenard",
+   "François Cluzet",
+   "Magalie Lépine Blondeau"
+  ]
  }
 ];
